@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Blast Furnace</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <aside>
+    <h1>🔥 Blast Furnace</h1>
+    <button id="new-btn" class="primary">+ New project</button>
+    <ul id="project-list"></ul>
+    <button id="settings-btn" class="ghost">⚙ Settings</button>
+    <div id="mode-note"></div>
+  </aside>
+
+  <main id="main">
+    <section id="welcome">
+      <h2>Drop in an idea. Two top models plan it, merge their plans, and a team builds it.</h2>
+      <ol class="flow">
+        <li><b>Idea</b> You type it and talk it through.</li>
+        <li><b>Analyze</b> Opus and GPT each study it.</li>
+        <li><b>Plan</b> Each writes a full plan.</li>
+        <li><b>Cross review</b> They review each other.</li>
+        <li><b>Merge</b> Best parts become one final plan.</li>
+        <li><b>Approve</b> You say go.</li>
+        <li><b>Build</b> Smaller agents do each task, check their own work, then a big model reviews it.</li>
+        <li><b>Final review</b> A big model checks the whole thing.</li>
+      </ol>
+      <p>Add your own steps before or after any stage in the <b>Steps</b> tab.</p>
+    </section>
+
+    <section id="new-form" hidden>
+      <h2>New project</h2>
+      <label>Your idea<textarea id="nf-idea" rows="8" placeholder="Describe what you want built..."></textarea></label>
+      <label>Name <input id="nf-name" placeholder="optional" /></label>
+      <label>Project folder (where the code goes)<input id="nf-ws" placeholder="~/code/my-app" /></label>
+      <button id="nf-create" class="primary">Create</button>
+    </section>
+
+    <section id="settings" hidden>
+      <h2>Settings: who does what</h2>
+      <p class="muted">Provider "claude" uses your Claude subscription (Claude Code login). "codex" uses your ChatGPT subscription (Codex login). Change model ids here when new models come out.</p>
+      <textarea id="settings-json" rows="34" spellcheck="false"></textarea>
+      <button id="settings-save" class="primary">Save</button>
+    </section>
+
+    <section id="project" hidden>
+      <header>
+        <div>
+          <h2 id="p-name"></h2>
+          <div class="muted" id="p-ws"></div>
+        </div>
+        <div class="actions">
+          <span id="p-status" class="badge"></span>
+          <button id="btn-start" class="primary">▶ Start</button>
+          <button id="btn-approve" class="primary">✓ Approve plan</button>
+          <button id="btn-stop" class="danger">■ Stop</button>
+          <select id="redo-stage" title="Clear a stage and everything after it"></select>
+          <button id="btn-redo" class="ghost">↺ Redo</button>
+        </div>
+      </header>
+      <div id="stages"></div>
+      <div id="error" class="error" hidden></div>
+      <nav id="tabs">
+        <button data-tab="idea" class="on">1 · Idea</button>
+        <button data-tab="plans">2 · Plans</button>
+        <button data-tab="build">3 · Build</button>
+        <button data-tab="steps">Steps</button>
+        <button data-tab="log">Log</button>
+      </nav>
+      <div id="tab-idea" class="tab">
+        <div class="cols">
+          <div>
+            <h3>Idea</h3>
+            <textarea id="idea" rows="8"></textarea>
+            <button id="idea-save" class="ghost">Save idea</button>
+            <h3>Brief <span class="muted">(the clear version the planners use)</span></h3>
+            <textarea id="brief" rows="12" placeholder="Talk it through on the right, then press 'Write brief'. You can edit it."></textarea>
+            <button id="refine" class="primary">✎ Write brief from chat</button>
+            <button id="brief-save" class="ghost">Save brief</button>
+          </div>
+          <div>
+            <h3>Discuss</h3>
+            <div id="chat"></div>
+            <div class="row">
+              <textarea id="chat-in" rows="3" placeholder="Talk about your idea..."></textarea>
+              <button id="chat-send" class="primary">Send</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="tab-plans" class="tab" hidden></div>
+      <div id="tab-build" class="tab" hidden></div>
+      <div id="tab-steps" class="tab" hidden>
+        <p class="muted">Extra steps run before or after any stage. Example: "after execute, workers, write: add a README and deploy notes".</p>
+        <div id="steps-list"></div>
+        <button id="step-add" class="ghost">+ Add step</button>
+        <button id="steps-save" class="primary">Save steps</button>
+      </div>
+      <div id="tab-log" class="tab" hidden><div id="log"></div></div>
+    </section>
+  </main>
+  <script src="/app.js"></script>
+</body>
+</html>

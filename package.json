@@ -1,0 +1,27 @@
+{
+  "name": "blast-furnace",
+  "version": "0.1.0",
+  "description": "One app for your Claude and ChatGPT/Codex subscriptions, with a plan -> cross-review -> merge -> build -> review pipeline.",
+  "type": "module",
+  "license": "MIT",
+  "bin": { "blast-furnace": "dist/cli.js" },
+  "files": ["dist", "web"],
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "dev": "tsx src/cli.ts",
+    "demo": "BF_MOCK=1 tsx src/cli.ts",
+    "build": "tsc -p .",
+    "start": "node dist/cli.js",
+    "typecheck": "tsc -p . --noEmit",
+    "test": "tsx --test test/*.test.ts"
+  },
+  "dependencies": {
+    "@anthropic-ai/claude-agent-sdk": "^0.3.316",
+    "@openai/codex-sdk": "^0.166.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0"
+  }
+}
